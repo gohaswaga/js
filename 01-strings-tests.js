@@ -1,247 +1,315 @@
-const assert = require('assert');
-const tasks = require('../src/01-strings-tasks');
-it.optional = require('../extensions/it-optional');
+/* *******************************************************************************************
+ *                                                                                           *
+ * Please read the following tutorial before implementing tasks:                              *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String   *
+ *                                                                                           *
+ ******************************************************************************************* */
 
-describe('01-strings-tasks', () => {
-  it.optional(
-    'concatenateStrings should return concatenation of two strings',
-    () => {
-      assert.equal(tasks.concatenateStrings('aa', 'bb'), 'aabb');
-      assert.equal(tasks.concatenateStrings('aa', ''), 'aa');
-      assert.equal(tasks.concatenateStrings('', 'bb'), 'bb');
-    }
-  );
+/**
+ * Returns the result of concatenation of two strings.
+ *
+ * @param {string} value1
+ * @param {string} value2
+ * @return {string}
+ *
+ * @example
+ *   'aa', 'bb' => 'aabb'
+ *   'aa',''    => 'aa'
+ *   '',  'bb'  => 'bb'
+ */
+function concatenateStrings(value1, value2) {
+  return value1 + value2;
+}
 
-  it.optional('getStringLength should return the length of string', () => {
-    assert.equal(
-      tasks.getStringLength('aaaaa'),
-      5,
-      "'aaaaa' length should be 5"
-    );
-    assert.equal(tasks.getStringLength(''), 0, "'' length should be 0");
+/**
+ * Returns the length of given string.
+ *
+ * @param {string} value
+ * @return {number}
+ *
+ * @example
+ *   'aaaaa' => 5
+ *   'b'     => 1
+ *   ''      => 0
+ */
+function getStringLength(value) {
+  return value.length;
+}
+
+/**
+ * Returns the result of string template and given parameters firstName and lastName.
+ * Please do not use concatenation, use template string :
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings
+ *
+ * @param {string} firstName
+ * @param {string} lastName
+ * @return {string}
+ *
+ * @example
+ *   'John','Doe'      => 'Hello, John Doe!'
+ *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
+ */
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello, ${firstName} ${lastName}!`;
+}
+
+/**
+ * Extracts a name from template string 'Hello, First_Name Last_Name!'.
+ *
+ * @param {string} value
+ * @return {string}
+ *
+ * @example
+ *   'Hello, John Doe!' => 'John Doe'
+ *   'Hello, Chuck Norris!' => 'Chuck Norris'
+ */
+function extractNameFromTemplate(value) {
+  return value.replace('Hello, ', '').replace('!', '');
+}
+
+/**
+ * Returns a first char of the given string.
+ *
+ * @param {string} value
+ * @return {string}
+ *
+ * @example
+ *   'John Doe'  => 'J'
+ *   'cat'       => 'c'
+ */
+function getFirstChar(value) {
+  return value[0];
+}
+
+/**
+ * Removes a leading and trailing whitespace characters from string.
+ *
+ * @param {string} value
+ * @return {string}
+ *
+ * @example
+ *   '  Abracadabra'    => 'Abracadabra'
+ *   'cat'              => 'cat'
+ *   '\tHello, World! ' => 'Hello, World!'
+ */
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
+}
+
+/**
+ * Returns a string that repeated the specified number of times.
+ *
+ * @param {string} value
+ * @param {string} count
+ * @return {string}
+ *
+ * @example
+ *   'A', 5  => 'AAAAA'
+ *   'cat', 3 => 'catcatcat'
+ */
+function repeatString(value, count) {
+  return value.repeat(count);
+}
+
+/**
+ * Remove the first occurrence of string inside another string
+ *
+ * @param {string} str
+ * @param {string} value
+ * @return {string}
+ *
+ * @example
+ *   'To be or not to be', 'not'  => 'To be or  to be'
+ *   'I like legends', 'end' => 'I like legs',
+ *   'ABABAB','BA' => 'ABAB'
+ */
+function removeFirstOccurrences(str, value) {
+  return str.replace(value, '');
+}
+
+/**
+ * Remove the first and last angle brackets from tag string
+ *
+ * @param {string} str
+ * @return {string}
+ *
+ * @example
+ *   '<div>' => 'div'
+ *   '<span>' => 'span'
+ *   '<a>' => 'a'
+ */
+function unbracketTag(str) {
+  return str.slice(1, -1);
+}
+
+/**
+ * Converts all characters of the specified string into the upper case
+ *
+ * @param {string} str
+ * @return {string}
+ *
+ * @example
+ *   'Thunderstruck' => 'THUNDERSTRUCK'
+ *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ */
+function convertToUpperCase(str) {
+  return str.toUpperCase();
+}
+
+/**
+ * Extracts e-mails from single string with e-mails list delimeted by semicolons
+ *
+ * @param {string} str
+ * @return {array}
+ *
+ * @example
+ *   'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com'
+ *   => [
+ *      'angus.young@gmail.com',
+ *      'brian.johnson@hotmail.com',
+ *      'bon.scott@yahoo.com'
+ *   ],
+ *   'info@gmail.com' => ['info@gmail.com']
+ */
+function extractEmails(str) {
+  return str.split(';');
+}
+
+/**
+ * Returns the string representation of rectangle with specified width and height
+ * using pseudograhic chars
+ *
+ * @param {number} width
+ * @param {number} height
+ * @return {string}
+ *
+ * @example
+ *
+ *            '┌────┐\n'+
+ *  (6,4) =>  '│    │\n'+
+ *            '│    │\n'+
+ *            '└────┘\n'
+ *
+ *  (2,2) =>  '┌┐\n'+
+ *            '└┘\n'
+ *
+ *             '┌──────────┐\n'+
+ *  (12,3) =>  '│          │\n'+
+ *             '└──────────┘\n'
+ *
+ */
+function getRectangleString(width, height) {
+  const top = `┌${'─'.repeat(width - 2)}┐\n`;
+  const middle = `│${' '.repeat(width - 2)}│\n`.repeat(height - 2);
+  const bottom = `└${'─'.repeat(width - 2)}┘\n`;
+  return `${top}${middle}${bottom}`;
+}
+
+/**
+ * Encode specified string with ROT13 cipher
+ * See details:  https://en.wikipedia.org/wiki/ROT13
+ *
+ * @param {string} str
+ * @return {string}
+ *
+ * @example
+ *
+ *   'hello' => 'uryyb'
+ *   'Why did the chicken cross the road?' => 'Jul qvq gur puvpxra pebff gur ebnq?'
+ *   'Gb trg gb gur bgure fvqr!' => 'To get to the other side!'
+ *   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+ *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+ *
+ */
+function encodeToRot13(str) {
+  return str.replace(/[A-Za-z]/g, (char) => {
+    const base = char <= 'Z' ? 65 : 97;
+    return String.fromCharCode(((char.charCodeAt(0) - base + 13) % 26) + base);
   });
+}
 
-  it.optional(
-    'getStringFromTemplate should create a string from template using given parameters',
-    () => {
-      assert.equal(
-        tasks.getStringFromTemplate('John', 'Doe'),
-        'Hello, John Doe!'
-      );
-      assert.equal(
-        tasks.getStringFromTemplate('Chuck', 'Norris'),
-        'Hello, Chuck Norris!'
-      );
-    }
-  );
+/**
+ * Returns true if the value is string; otherwise false.
+ * @param {string} value
+ * @return {boolean}
+ *
+ * @example
+ *   isString() => false
+ *   isString(null) => false
+ *   isString([]) => false
+ *   isString({}) => false
+ *   isString('test') => true
+ *   isString(new String('test')) => true
+ */
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
+}
 
-  it.optional(
-    'extractNameFromTemplate should parse the name from given string',
-    () => {
-      assert.equal(
-        tasks.extractNameFromTemplate('Hello, John Doe!'),
-        'John Doe'
-      );
-      assert.equal(
-        tasks.extractNameFromTemplate('Hello, Chuck Norris!'),
-        'Chuck Norris'
-      );
-    }
-  );
+/**
+ * Returns playid card id.
+ *
+ * Playing cards inittial deck inclides the cards in the following order:
+ *
+ *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+ *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+ *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+ *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+ *
+ * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
+ * Function returns the zero-based index of specified card in the initial deck above.
+ *
+ * @param {string} value
+ * @return {number}
+ *
+ * @example
+ *   'A♣' => 0
+ *   '2♣' => 1
+ *   '3♣' => 2
+ *     ...
+ *   'Q♠' => 50
+ *   'K♠' => 51
+ */
+function getCardId(value) {
+  const ranks = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
+  ];
+  const suits = ['♣', '♦', '♥', '♠'];
 
-  it.optional(
-    'getFirstChar should return the first char from given string',
-    () => {
-      assert.equal(tasks.getFirstChar('John Doe'), 'J');
-      assert.equal(tasks.getFirstChar('cat'), 'c');
-    }
-  );
+  const rank = value.slice(0, value.length - 1);
+  const suit = value.slice(-1);
 
-  it.optional(
-    'removeLeadingAndTrailingWhitespaces should remove leading and trailing whitespaces from the string',
-    () => {
-      assert.equal(
-        tasks.removeLeadingAndTrailingWhitespaces('  Abracadabra'),
-        'Abracadabra'
-      );
-      assert.equal(tasks.removeLeadingAndTrailingWhitespaces('cat'), 'cat');
-      assert.equal(
-        tasks.removeLeadingAndTrailingWhitespaces('\tHello, World! '),
-        'Hello, World!'
-      );
-    }
-  );
+  const rankIndex = ranks.indexOf(rank);
+  const suitIndex = suits.indexOf(suit);
 
-  it.optional(
-    'repeatString should repeat string specified number of times',
-    () => {
-      assert.equal(tasks.repeatString('A', 5), 'AAAAA');
-      assert.equal(tasks.repeatString('cat', 3), 'catcatcat');
-    }
-  );
+  return suitIndex * ranks.length + rankIndex;
+}
 
-  it.optional(
-    'removeFirstOccurrences should remove all specified values from a string',
-    () => {
-      assert.equal(
-        tasks.removeFirstOccurrences('To be or not to be', ' not'),
-        'To be or to be'
-      );
-      assert.equal(
-        tasks.removeFirstOccurrences('I like legends', 'end'),
-        'I like legs'
-      );
-      assert.equal(tasks.removeFirstOccurrences('ABABAB', 'BA'), 'ABAB');
-    }
-  );
-
-  it.optional(
-    'unbracketTag should remove first and last angle brackets from tag string',
-    () => {
-      assert.equal(tasks.unbracketTag('<div>'), 'div');
-      assert.equal(tasks.unbracketTag('<span>'), 'span');
-      assert.equal(tasks.unbracketTag('<a>'), 'a');
-    }
-  );
-
-  it.optional(
-    'convertToUpperCase should convert all chars from specified string into upper case',
-    () => {
-      assert.equal(tasks.convertToUpperCase('Thunderstruck'), 'THUNDERSTRUCK');
-      assert.equal(
-        tasks.convertToUpperCase('abcdefghijklmnopqrstuvwxyz'),
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-      );
-    }
-  );
-
-  it.optional(
-    'extractEmails should extract emails from string list delimeted by semicolons',
-    () => {
-      assert.deepEqual(
-        tasks.extractEmails(
-          'angus.young@gmail.com;brian.johnson@hotmail.com;bon.scott@yahoo.com'
-        ),
-        [
-          'angus.young@gmail.com',
-          'brian.johnson@hotmail.com',
-          'bon.scott@yahoo.com',
-        ]
-      );
-      assert.deepEqual(tasks.extractEmails('info@gmail.com'), [
-        'info@gmail.com',
-      ]);
-    }
-  );
-
-  it.optional(
-    'getRectangleString should return the string reprentation of rectangle with specified size',
-    () => {
-      assert.equal(
-        tasks.getRectangleString(6, 4),
-        '┌────┐\n│    │\n│    │\n└────┘\n'
-      );
-      assert.deepEqual(tasks.getRectangleString(2, 2), '┌┐\n└┘\n');
-      assert.deepEqual(
-        tasks.getRectangleString(12, 3),
-        '┌──────────┐\n│          │\n└──────────┘\n'
-      );
-    }
-  );
-
-  it.optional(
-    'encodeToRot13 should encode-decode string using ROT13 algorithm',
-    () => {
-      assert.equal(tasks.encodeToRot13('hello'), 'uryyb');
-      assert.equal(
-        tasks.encodeToRot13('Why did the chicken cross the road?'),
-        'Jul qvq gur puvpxra pebff gur ebnq?'
-      );
-      assert.equal(
-        tasks.encodeToRot13('Gb trg gb gur bgure fvqr!'),
-        'To get to the other side!'
-      );
-      assert.equal(
-        tasks.encodeToRot13(
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-        ),
-        'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
-      );
-    }
-  );
-
-  it.optional('isString should return true if argument is a string', () => {
-    assert.equal(tasks.isString(), false, 'undefined');
-    assert.equal(tasks.isString(null), false, 'null');
-    assert.equal(tasks.isString([]), false, '[]');
-    assert.equal(tasks.isString('test'), true, 'test');
-    const strTest = Object('test');
-    assert.equal(tasks.isString(strTest), true, "new String('test')");
-  });
-
-  it.optional(
-    'getCardId should return the index of card in the initial deck',
-    () => {
-      [
-        'A♣',
-        '2♣',
-        '3♣',
-        '4♣',
-        '5♣',
-        '6♣',
-        '7♣',
-        '8♣',
-        '9♣',
-        '10♣',
-        'J♣',
-        'Q♣',
-        'K♣',
-        'A♦',
-        '2♦',
-        '3♦',
-        '4♦',
-        '5♦',
-        '6♦',
-        '7♦',
-        '8♦',
-        '9♦',
-        '10♦',
-        'J♦',
-        'Q♦',
-        'K♦',
-        'A♥',
-        '2♥',
-        '3♥',
-        '4♥',
-        '5♥',
-        '6♥',
-        '7♥',
-        '8♥',
-        '9♥',
-        '10♥',
-        'J♥',
-        'Q♥',
-        'K♥',
-        'A♠',
-        '2♠',
-        '3♠',
-        '4♠',
-        '5♠',
-        '6♠',
-        '7♠',
-        '8♠',
-        '9♠',
-        '10♠',
-        'J♠',
-        'Q♠',
-        'K♠',
-      ].forEach((val, index) => {
-        assert.equal(
-          tasks.getCardId(val),
-          index,
-          `Invalid id for card '${val}':`
-        );
-      });
-    }
-  );
-});
+module.exports = {
+  concatenateStrings,
+  getStringLength,
+  getStringFromTemplate,
+  extractNameFromTemplate,
+  getFirstChar,
+  removeLeadingAndTrailingWhitespaces,
+  repeatString,
+  removeFirstOccurrences,
+  unbracketTag,
+  convertToUpperCase,
+  extractEmails,
+  getRectangleString,
+  encodeToRot13,
+  isString,
+  getCardId,
+};
