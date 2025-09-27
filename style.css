@@ -1,0 +1,96 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('image/bumaga.jpg');
+}
+
+h1 {
+    color: #020202;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px 15px;
+    width: 300px;
+    border: 1px solid #8f8f8f;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 5px rgba(100, 149, 237, 0.5);
+    outline: none;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #035d99;
+}
+
+#task_list {
+    margin-top: 25px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#task_list div {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease;
+}
+
+#task_list div:hover {
+    transform: scale(1.02);
+}
+
+#task_list p {
+    flex-grow: 1;
+    margin: 0 10px;
+    font-size: 16px;
+    color: #102a43;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 10px;
+}
+
+button:nth-child(3),
+button:nth-child(4) {
+    margin-left: 5px;
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+button:nth-child(3):hover,
+button:nth-child(4):hover {
+    background-color:#ccc;
+}
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список задач</title>
+    <style>
+        #task_list div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <input id="input_to_list" type="text" placeholder="Введите задачу">
+    <button onclick="toDoList()">Добавить</button>
+    <div id="task_list"></div>
+    <script>
+        const input = document.getElementById('input_to_list');
+        const button = document.querySelector('button');
+        let editingTask = null;
+
+        window.onload = function () {
+            const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            savedTasks.forEach(text => createTask(text));
+        };
+
+        function toDoList() {
+            if (editingTask) {
+                editingTask.textContent = input.value;
+                updateLocalStorage();
+                editingTask = null;
+                input.value = '';
+                return;
+            }
+
+            createTask(input.value);
+            updateLocalStorage();
+            input.value = '';
+        }
+
+        function createTask(text) {
+            const taskContainer = document.createElement('div');
+
+            const taskText = document.createElement('p');
+            taskText.textContent = text;
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.addEventListener('change', () => {
+                taskText.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+            });
+
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Редактировать';
+            editButton.addEventListener('click', () => {
+                input.value = taskText.textContent;
+                editingTask = taskText;
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Удалить';
+            deleteButton.addEventListener('click', () => {
+                taskContainer.remove();
+                updateLocalStorage();
+                if (editingTask === taskText) {
+                    editingTask = null;
+                    input.value = '';
+                }
+            });
+
+            taskContainer.appendChild(checkbox);
+            taskContainer.appendChild(taskText);
+            taskContainer.appendChild(editButton);
+            taskContainer.appendChild(deleteButton);
+
+            document.getElementById('task_list').appendChild(taskContainer);
+        }
+
+        function updateLocalStorage() {
+            const tasks = [];
+            document.querySelectorAll('#task_list p').forEach(p => {
+                tasks.push(p.textContent);
+            });
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+    </script>
+</body>
+</html>
